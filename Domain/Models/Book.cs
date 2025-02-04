@@ -55,7 +55,7 @@ namespace BootCampAPI.Domain.Models
             return new Book(Id, Title, Author, Genre, Description, PageCount, PagesRead, Publisher);
         }
 
-        public int Id { get; private set; }
+        public int BookId { get; private set; }
         public string Title { get; private set; }
         public string Author { get; private set; }
         public string Genre { get; private set; }
