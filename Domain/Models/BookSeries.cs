@@ -8,19 +8,19 @@ namespace BootCampAPI.Domain.Models
 {
     public class BookSeries
     {
-        internal BookSeries(int bookSeriesId, string author, List<Book> booksInSeries)
+        internal BookSeries(int bookSeriesId, Author author, List<Book> booksInSeries)
         {
             BookSeriesId = bookSeriesId;
             Author = author;
             BooksInSeries = booksInSeries;
         }
 
-        public static BookSeries Create(int bookSeriesId, string author, List<Book> booksInSeries)
+        public static BookSeries Create(int bookSeriesId, Author author, List<Book> booksInSeries)
         {
             if (bookSeriesId.Equals(null))
                 throw new ArgumentException("BookSeriesId cannot be null", nameof(bookSeriesId));
 
-            if (string.IsNullOrWhiteSpace(author))
+            if (author == null)
                 throw new ArgumentException("Author cannot be empty", nameof(author));
 
             if (booksInSeries.Equals(null))
@@ -42,12 +42,12 @@ namespace BootCampAPI.Domain.Models
         }
 
         public int BookSeriesId { get; private set; }
-        public string Author { get; private set; }
-        public List <Book> BooksInSeries { get; private set; }
+        public Author Author { get; private set; }
+        internal List <Book> BooksInSeries { get; private set; } // add accessor to get the list of books
 
-        public void ChangeAuthor(string author)
+        public void ChangeAuthor(Author author)
         {
-            if (string.IsNullOrWhiteSpace(author))
+            if (author == null)
                 throw new ArgumentException("Author cannot be empty", nameof(author));
 
             Author = author;

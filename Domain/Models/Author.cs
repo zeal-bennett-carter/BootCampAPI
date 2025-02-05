@@ -8,14 +8,12 @@ namespace BootCampAPI.Domain.Models
 {
     public class Author
     {
-
         internal Author(int authorId, string name, int age, AuthorStatus status, List<Book> books)
         {
             AuthorId = authorId;
             Name = name;
             Age = age;
             Status = status;
-            Books = books;
         }
 
         public static Author Create(int authorId, string name, int age, AuthorStatus status, List<Book> books)
@@ -39,7 +37,6 @@ namespace BootCampAPI.Domain.Models
         public string Name { get; private set; }
         public int Age { get; private set; }
         public AuthorStatus Status { get; private set; }
-        public List<Book> Books { get; private set; }
 
         public void ChangeName(string name)
         {
@@ -63,38 +60,6 @@ namespace BootCampAPI.Domain.Models
                 throw new ArgumentException("Author's status must be Alive, Retired, or Deceased");
 
             Status = status;
-        }
-
-        public void AddBookToSeries(Book book)
-        {
-            var bookIds = new List<int>();
-
-            foreach (var seriesBook in Books)
-            {
-                var seriesBookId = seriesBook.BookId;
-                bookIds.Add(seriesBookId);
-            }
-
-            if (bookIds.Contains(book.BookId))
-                throw new ArgumentException("Book is already in series", nameof(book));
-
-            Books.Add(book);
-        }
-
-        public void RemoveBookFromSeries(Book book)
-        {
-            var bookIds = new List<int>();
-
-            foreach (var seriesBook in Books)
-            {
-                var seriesBookId = seriesBook.BookId;
-                bookIds.Add(seriesBookId);
-            }
-
-            if (!bookIds.Contains(book.BookId))
-                throw new ArgumentException("Book already is not in series", nameof(book));
-
-            Books.Remove(book);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace BootCampAPI.Domain.Models
 
         public int BookId { get; private set; }
         public string Title { get; private set; }
-        public string Author { get; private set; }
+        public Author Author { get; private set; }
         public string Genre { get; private set; }
         public string Description { get; private set; }
         public int PageCount { get; private set; }
