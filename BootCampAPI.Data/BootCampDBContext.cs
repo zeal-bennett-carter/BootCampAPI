@@ -21,5 +21,67 @@ namespace BootCampAPI.Data
 
         public void Migrate()
             => base.Database.Migrate();
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("Data Source=books.db"); // Set your database provider
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BookEntity>(entity =>
+            {
+                entity
+                    .ToTable("Book")
+                    .HasKey(e => e.BookId);
+
+                entity
+                    .Property(i => i.Title)
+                    .HasMaxLength(200)
+                    .IsRequired();
+
+                entity
+                    .Property(i => i.AuthorName)
+                    .HasMaxLength(100)
+                    .IsRequired();
+
+                entity
+                    .Property(i => i.Genre)
+                    .HasMaxLength(50)
+                    .IsRequired();
+
+                entity
+                    .Property(i => i.Description)
+                    .HasMaxLength(500)
+                    .IsRequired();
+
+                entity
+                    .Property(i => i.PageCount)
+                    .IsRequired();
+
+                entity
+                    .Property(i => i.PagesRead)
+                    .IsRequired();
+            });
+
+            modelBuilder.Entity<BookEntity>()
+                .HasOne(e => e.Author)
+                .WithMany()
+                .HasForeignKey(e => e.AuthorID);
+
+            modelBuilder.Entity<BookEntity>()
+                .HasOne(e => e.BookSeries)
+                .WithMany()
+                .HasForeignKey(e => e.BookSeriesID);
+
+            modelBuilder.Entity<BookSeriesEntity>()
+                .HasOne(e => e.Author)
+                .WithMany()
+                .HasForeignKey(e => e.AuthorId);
+        }
     }
+
 }

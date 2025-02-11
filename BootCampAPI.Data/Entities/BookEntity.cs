@@ -9,6 +9,8 @@ namespace BootCampAPI.Data.Entities
     public class BookEntity
     {
         public int BookId {get; set; }
+        public int AuthorID { get; set; }
+        public int? BookSeriesID { get; set; }
         public string Title {get; set; }
         public string AuthorName {get; set; }
         public string Genre {get; set; }
