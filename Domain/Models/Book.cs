@@ -8,11 +8,11 @@ namespace BootCampAPI.Domain.Models
 {
     public class Book
     {
-        internal Book(int Id, string Title, string Author, string Genre, string Description, int PageCount, int PagesRead, string Publisher)
+        internal Book(int Id, string Title, string AuthorName, string Genre, string Description, int PageCount, int PagesRead, string Publisher)
         {
             Id = Id;
             Title = Title;
-            Author = Author;
+            AuthorName = AuthorName;
             Genre = Genre;
             Description = Description;
             PageCount = PageCount;
@@ -20,16 +20,16 @@ namespace BootCampAPI.Domain.Models
             Publisher = Publisher;
         }
 
-        public static Book Create(int Id, string Title, string Author, string Genre, string Description, int PageCount, int PagesRead, string Publisher)
+        public static Book Create(int Id, string Title, string AuthorName, string Genre, string Description, int PageCount, int PagesRead, string Publisher)
         {
             if (Id.Equals(null))
-                throw new ArgumentException("Id cannot be null", nameof(Id);
+                throw new ArgumentException("Id cannot be null", nameof(Id));
 
             if (string.IsNullOrWhiteSpace(Title))
                 throw new ArgumentException("Title cannot be empty", nameof(Title));
 
-            if (string.IsNullOrWhiteSpace(Author))
-                throw new ArgumentException("Author cannot be empty", nameof(Author));
+            if (string.IsNullOrWhiteSpace(AuthorName))
+                throw new ArgumentException("Author cannot be empty", nameof(AuthorName));
 
             if (string.IsNullOrWhiteSpace(Genre))
                 throw new ArgumentException("Genre cannot be empty", nameof(Genre));
@@ -52,12 +52,12 @@ namespace BootCampAPI.Domain.Models
             if(PagesRead > PageCount)
                 throw new ArgumentException("PagesRead cannot be greater than PageCount", nameof(PagesRead));
 
-            return new Book(Id, Title, Author, Genre, Description, PageCount, PagesRead, Publisher);
+            return new Book(Id, Title, AuthorName, Genre, Description, PageCount, PagesRead, Publisher);
         }
 
         public int BookId { get; private set; }
         public string Title { get; private set; }
-        public Author Author { get; private set; }
+        public string AuthorName { get; private set; }
         public string Genre { get; private set; }
         public string Description { get; private set; }
         public int PageCount { get; private set; }
@@ -77,7 +77,7 @@ namespace BootCampAPI.Domain.Models
             if (string.IsNullOrWhiteSpace(newAuthor))
                 throw new ArgumentException("Title cannot be empty", nameof(newAuthor));
 
-            Author = newAuthor;
+            AuthorName = newAuthor;
         }
 
         public void ChangeGenre(string newGenre)

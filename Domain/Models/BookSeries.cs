@@ -43,7 +43,7 @@ namespace BootCampAPI.Domain.Models
 
         public int BookSeriesId { get; private set; }
         public Author Author { get; private set; }
-        internal List <Book> BooksInSeries { get; private set; } // add accessor to get the list of books
+        private List <Book> BooksInSeries {get; set; } 
 
         public void ChangeAuthor(Author author)
         {
@@ -51,6 +51,11 @@ namespace BootCampAPI.Domain.Models
                 throw new ArgumentException("Author cannot be empty", nameof(author));
 
             Author = author;
+        }
+
+        public List<Book> GetBooksInSeries()
+        {
+            return new List<Book>(BooksInSeries);
         }
 
         public void AddBookToSeries(Book book)
