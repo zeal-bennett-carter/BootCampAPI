@@ -1,4 +1,6 @@
+using BootCampAPI.Configuration;
 using Microsoft.AspNetCore.OData;
+using Microsoft.AspNetCore.OData.NewtonsoftJson;
 
 var builder = WebApplication.CreateBuilder(args);
 
