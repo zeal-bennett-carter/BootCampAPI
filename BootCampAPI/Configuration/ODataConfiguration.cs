@@ -1,5 +1,6 @@
 ﻿using BootCampAPI.Application.Data.Queries.ListAuthors;
 using BootCampAPI.Application.Data.Queries.ListBooks;
+using BootCampAPI.Application.Data.Queries.ListBookSeries;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 
@@ -17,6 +18,10 @@ namespace BootCampAPI.Configuration
 
             // Configure ListBooksDataQueryResult entity set
             EntitySetConfiguration<ListBooksDataQueryResult> booksSet = builder.EntitySet<ListBooksDataQueryResult>("books");
+            booksSet.EntityType.HasKey(r => r.BookId);
+
+            // Configure ListBookSeriesDataQueryResult entity set
+            EntitySetConfiguration<ListBookSeriesDataQueryResult> bookSeriesSet = builder.EntitySet<ListBookSeriesDataQueryResult>("bookSeries");
             booksSet.EntityType.HasKey(r => r.BookId);
 
             return builder.GetEdmModel();
