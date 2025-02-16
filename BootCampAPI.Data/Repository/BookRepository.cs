@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BootCampAPI.Data.Repository
 {
-    internal class BookRepository(BootCampDBContext db) : IAuthorRepository
+    internal class BookRepository(BootCampDBContext db) : IBookRepository
     {
         public async Task<Book?> Get(int bookId)
         {
