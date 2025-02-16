@@ -35,101 +35,46 @@ namespace BootCampAPI.Data
         {
             modelBuilder.Entity<AuthorEntity>(entity =>
             {
-                entity
-                    .ToTable("Author")
-                    .HasKey(e => e.AuthorId);
-
-                entity
-                    .Property(i => i.Name)
-                    .HasMaxLength(200)
-                    .IsRequired();
-
-                entity
-                    .Property(i => i.Age)
-                    .IsRequired();
-
-                entity
-                    .Property(i => i.Status)
-                    .HasMaxLength(50)
-                    .IsRequired();
+                entity.ToTable("Author").HasKey(e => e.AuthorId);
+                entity.Property(i => i.Name).HasMaxLength(200).IsRequired();
+                entity.Property(i => i.Age).IsRequired();
+                entity.Property(i => i.Status).HasMaxLength(50).IsRequired();
             });
 
             modelBuilder.Entity<BookEntity>(entity =>
             {
-                entity
-                    .ToTable("Book")
-                    .HasKey(e => e.BookId);
+                entity.ToTable("Book").HasKey(e => e.BookId);
+                entity.Property(i => i.AuthorID).IsRequired();
+                entity.Property(i => i.BookSeriesID).IsRequired(false);
+                entity.Property(i => i.Title).HasMaxLength(200).IsRequired();
+                entity.Property(i => i.AuthorName).HasMaxLength(100).IsRequired();
+                entity.Property(i => i.Genre).HasMaxLength(50).IsRequired();
+                entity.Property(i => i.Description).HasMaxLength(500).IsRequired();
+                entity.Property(i => i.PageCount).IsRequired();
+                entity.Property(i => i.PagesRead).IsRequired();
 
-                entity
-                    .Property(i => i.AuthorID)
-                    .HasMaxLength(500)
-                    .IsRequired();
+                entity.HasOne(e => e.Author)
+                      .WithMany()
+                      .HasForeignKey(e => e.AuthorID);
 
-                entity
-                    .Property(i => i.BookSeriesID)
-                    .HasMaxLength(500)
-                    .IsRequired();
-
-                entity
-                    .Property(i => i.Title)
-                    .HasMaxLength(200)
-                    .IsRequired();
-
-                entity
-                    .Property(i => i.AuthorName)
-                    .HasMaxLength(100)
-                    .IsRequired();
-
-                entity
-                    .Property(i => i.Genre)
-                    .HasMaxLength(50)
-                    .IsRequired();
-
-                entity
-                    .Property(i => i.Description)
-                    .HasMaxLength(500)
-                    .IsRequired();
-
-                entity
-                    .Property(i => i.PageCount)
-                    .IsRequired();
-
-                entity
-                    .Property(i => i.PagesRead)
-                    .IsRequired();
+                entity.HasOne(e => e.BookSeries)
+                      .WithMany(bs => bs.BooksInSeries)
+                      .HasForeignKey(e => e.BookSeriesID);
             });
-
-            modelBuilder.Entity<BookEntity>()
-                .HasOne(e => e.Author)
-                .WithMany()
-                .HasForeignKey(e => e.AuthorID);
-
-            modelBuilder.Entity<BookEntity>()
-                .HasOne(e => e.BookSeries)
-                .WithMany()
-                .HasForeignKey(e => e.BookSeriesID);
-
 
             modelBuilder.Entity<BookSeriesEntity>(entity =>
             {
-                entity
-                    .ToTable("BookSeries")
-                    .HasKey(e => e.BookSeriesId);
+                entity.ToTable("BookSeries").HasKey(e => e.BookSeriesId);
+                entity.Property(i => i.AuthorId).IsRequired();
 
-                entity
-                    .Property(i => i.AuthorId)
-                    .HasMaxLength(500)
-                    .IsRequired();
+                entity.HasOne(e => e.Author)
+                      .WithMany()
+                      .HasForeignKey(e => e.AuthorId);
 
-                entity
-                    .Property(i => i.BooksInSeries)
-                    .IsRequired();
+                entity.HasMany(bs => bs.BooksInSeries)
+                      .WithOne(b => b.BookSeries)
+                      .HasForeignKey(b => b.BookSeriesID);
             });
-
-            modelBuilder.Entity<BookSeriesEntity>()
-            .HasOne(e => e.Author)
-            .WithMany()
-            .HasForeignKey(e => e.AuthorId);
         }
     }
 

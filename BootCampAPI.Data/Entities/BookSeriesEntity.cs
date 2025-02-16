@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BootCampAPI.Data.Entities
 {
-    internal class BookSeriesEntity 
+    internal class BookSeriesEntity
     {
         public int BookSeriesId { get; set; }
         public int AuthorId { get; set; }
         public AuthorEntity Author { get; set; }
-        public List<BookEntity> BooksInSeries { get; set; }
+        public ICollection<BookEntity> BooksInSeries { get; set; } = new List<BookEntity>();
     }
 }
