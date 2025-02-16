@@ -8,7 +8,7 @@ namespace BootCampAPI.Domain.Models
 {
     public class Author
     {
-        internal Author(int authorId, string name, int age, AuthorStatus status, List<Book> books)
+        internal Author(int authorId, string name, int age, AuthorStatus status)
         {
             AuthorId = authorId;
             Name = name;
@@ -16,7 +16,7 @@ namespace BootCampAPI.Domain.Models
             Status = status;
         }
 
-        public static Author Create(int authorId, string name, int age, AuthorStatus status, List<Book> books)
+        public static Author Create(int authorId, string name, int age, string status)
         {
             if (authorId.Equals(null))
                 throw new ArgumentException("AuthorId cannot be null", nameof(authorId));
@@ -27,10 +27,10 @@ namespace BootCampAPI.Domain.Models
             if (age <= 0)
                 throw new ArgumentException("Age cannot be less than or equal to zero", nameof(age));
 
-            if (!Enum.IsDefined(typeof(AuthorStatus), status))
+            if (!Enum.TryParse<AuthorStatus>(status, true, out var authorStatus))
                 throw new ArgumentException("Author's status must be Alive, Retired, or Deceased");
 
-            return new Author(authorId, name, age, status, books);
+            return new Author(authorId, name, age, authorStatus);
         }
 
         public int AuthorId { get; private set; }
