@@ -3,7 +3,7 @@ using BootCampAPI.Data.Entities;
 
 namespace BootCampAPI.Data
 {
-    public class BootCampDBContext: DbContext, IDatabase
+    internal class BootCampDBContext: DbContext, IDatabase // make this internal, if we dont make it internal it makes it easy to access in different layers
     {
         public BootCampDBContext()
         {
@@ -21,6 +21,7 @@ namespace BootCampAPI.Data
 
         public void Migrate()
             => base.Database.Migrate();
+        // you code your entities and the migrations will create a database schema using the a command from microsoft
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,11 +33,42 @@ namespace BootCampAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AuthorEntity>(entity =>
+            {
+                entity
+                    .ToTable("Author")
+                    .HasKey(e => e.AuthorId);
+
+                entity
+                    .Property(i => i.Name)
+                    .HasMaxLength(200)
+                    .IsRequired();
+
+                entity
+                    .Property(i => i.Age)
+                    .IsRequired();
+
+                entity
+                    .Property(i => i.Status)
+                    .HasMaxLength(50)
+                    .IsRequired();
+            });
+
             modelBuilder.Entity<BookEntity>(entity =>
             {
                 entity
                     .ToTable("Book")
                     .HasKey(e => e.BookId);
+
+                entity
+                    .Property(i => i.AuthorID)
+                    .HasMaxLength(500)
+                    .IsRequired();
+
+                entity
+                    .Property(i => i.BookSeriesID)
+                    .HasMaxLength(500)
+                    .IsRequired();
 
                 entity
                     .Property(i => i.Title)
@@ -77,10 +109,27 @@ namespace BootCampAPI.Data
                 .WithMany()
                 .HasForeignKey(e => e.BookSeriesID);
 
+
+            modelBuilder.Entity<BookSeriesEntity>(entity =>
+            {
+                entity
+                    .ToTable("BookSeries")
+                    .HasKey(e => e.BookSeriesId);
+
+                entity
+                    .Property(i => i.AuthorId)
+                    .HasMaxLength(500)
+                    .IsRequired();
+
+                entity
+                    .Property(i => i.BooksInSeries)
+                    .IsRequired();
+            });
+
             modelBuilder.Entity<BookSeriesEntity>()
-                .HasOne(e => e.Author)
-                .WithMany()
-                .HasForeignKey(e => e.AuthorId);
+            .HasOne(e => e.Author)
+            .WithMany()
+            .HasForeignKey(e => e.AuthorId);
         }
     }
 

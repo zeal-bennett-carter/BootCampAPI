@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BootCampAPI.Data.Entities
 {
-    public class BookEntity
+    internal class BookEntity
     {
-        public int BookId {get; set; }
+        public int BookId { get; set; }
         public int AuthorID { get; set; }
         public int? BookSeriesID { get; set; }
         public string Title {get; set; }
