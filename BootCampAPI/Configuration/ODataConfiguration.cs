@@ -22,7 +22,7 @@ namespace BootCampAPI.Configuration
 
             // Configure ListBookSeriesDataQueryResult entity set
             EntitySetConfiguration<ListBookSeriesDataQueryResult> bookSeriesSet = builder.EntitySet<ListBookSeriesDataQueryResult>("bookSeries");
-            booksSet.EntityType.HasKey(r => r.BookId);
+            bookSeriesSet.EntityType.HasKey(r => r.BookSeriesId);
 
             return builder.GetEdmModel();
         }
