@@ -1,12 +1,15 @@
+using BootCampAPI.Application.Extensions;
 using BootCampAPI.Configuration;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.OData.NewtonsoftJson;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services
+   .AddApplicationServices()
    .AddControllers()
 
     .AddOData(opt =>
