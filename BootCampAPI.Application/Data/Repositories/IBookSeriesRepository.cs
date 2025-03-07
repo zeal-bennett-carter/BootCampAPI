@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BootCampAPI.Data.Repository
+namespace BootCampAPI.Application.Data.Repositories
 {
     public interface IBookSeriesRepository
     {

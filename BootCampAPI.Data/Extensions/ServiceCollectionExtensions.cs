@@ -1,5 +1,6 @@
 ﻿using BootCampAPI.Application.Data.Queries.ListAuthors;
 using BootCampAPI.Data.Queries;
+using BootCampAPI.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -18,6 +19,9 @@ public static class ServiceCollectionExtensions
             .AddScoped<IDatabase, BootCampDBContext>()
 
             .AddScoped<IListAuthorsDataQuery, ListAuthorsDataQuery>()
+
+            .AddScoped<IAuthorRepository, AuthorRepository>()
+
             .AddDbContext<BootCampDBContext>(options =>
             {
                 options.UseSqlite("Data Source=app.db");

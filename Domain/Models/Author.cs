@@ -8,7 +8,7 @@ namespace BootCampAPI.Domain.Models
 {
     public class Author
     {
-        internal Author(int authorId, string name, int age, AuthorStatus status)
+        internal Author(Guid authorId, string name, int age, AuthorStatus status)
         {
             AuthorId = authorId;
             Name = name;
@@ -16,10 +16,10 @@ namespace BootCampAPI.Domain.Models
             Status = status;
         }
 
-        public static Author Create(int authorId, string name, int age, string status)
+        public static Author Create(string name, int age, string status) // replace author id int with guid
         {
-            if (authorId.Equals(null))
-                throw new ArgumentException("AuthorId cannot be null", nameof(authorId));
+            //if (authorId.Equals(null))
+            //    throw new ArgumentException("AuthorId cannot be null", nameof(authorId));
 
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name cannot be empty", nameof(name));
@@ -30,10 +30,10 @@ namespace BootCampAPI.Domain.Models
             if (!Enum.TryParse<AuthorStatus>(status, true, out var authorStatus))
                 throw new ArgumentException("Author's status must be Alive, Retired, or Deceased");
 
-            return new Author(authorId, name, age, authorStatus);
+            return new Author(Guid.NewGuid(), name, age, authorStatus);
         }
 
-        public int AuthorId { get; private set; }
+        public Guid AuthorId { get; private set; }
         public string Name { get; private set; }
         public int Age { get; private set; }
         public AuthorStatus Status { get; private set; }
