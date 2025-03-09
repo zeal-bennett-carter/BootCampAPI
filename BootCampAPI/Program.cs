@@ -1,3 +1,4 @@
+using BootCampAPI.Application.Data.Repositories;
 using BootCampAPI.Application.Extensions;
 using BootCampAPI.Configuration;
 using BootCampAPI.Data.Extensions;
@@ -22,6 +23,7 @@ builder.Services
             opt.TimeZone = TimeZoneInfo.Utc;
         })
     .AddODataNewtonsoftJson();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

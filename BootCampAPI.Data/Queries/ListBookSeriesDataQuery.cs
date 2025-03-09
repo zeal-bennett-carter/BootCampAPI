@@ -7,16 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BootCampAPI.Data.Repository;
+using BootCampAPI.Application.Data.Repositories;
 
 namespace BootCampAPI.Data.Queries
 {
     internal class ListBookSeriesDataQuery : IListBookSeriesDataQuery
     {
         private readonly BootCampDBContext db;
-        private readonly AuthorRepository authorRepository;
-        private readonly BookRepository bookRepository;
+        private readonly IAuthorRepository authorRepository;
+        private readonly IBookRepository bookRepository;
 
-        public ListBookSeriesDataQuery(BootCampDBContext db, AuthorRepository authorRepository, BookRepository bookRepository)
+        public ListBookSeriesDataQuery(BootCampDBContext db, IAuthorRepository authorRepository, IBookRepository bookRepository)
         {
             this.db = db;
             this.authorRepository = authorRepository;

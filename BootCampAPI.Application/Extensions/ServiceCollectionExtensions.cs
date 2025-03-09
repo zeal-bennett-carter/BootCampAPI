@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using BootCampAPI.Application.Data.Repositories;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 

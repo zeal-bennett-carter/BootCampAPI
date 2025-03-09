@@ -10,12 +10,14 @@ namespace BootCampAPI.Application.Commands.Authors.CreateAuthor
 {
     public class CreateAuthorCommand : IRequest<AuthorDTO>
     {
+        public int AuthorId { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
         public string Status { get; set; }
 
-        public CreateAuthorCommand(string name, int age, string status)
+        public CreateAuthorCommand(int id, string name, int age, string status)
         {
+            AuthorId = id;
             Name = name;
             Age = age;
             Status = status;

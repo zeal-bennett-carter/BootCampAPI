@@ -1,4 +1,5 @@
-﻿using BootCampAPI.Data.Entities;
+﻿using BootCampAPI.Application.Data.Repositories;
+using BootCampAPI.Data.Entities;
 using BootCampAPI.Domain.Models;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
-﻿using BootCampAPI.Data.Entities;
+﻿using BootCampAPI.Application.Data.Repositories;
+using BootCampAPI.Data.Entities;
 using BootCampAPI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,10 +13,10 @@ namespace BootCampAPI.Data.Repository
     internal class BookSeriesRepository : IBookSeriesRepository
     {
         private readonly BootCampDBContext db;
-        private readonly AuthorRepository authorRepository;
-        private readonly BookRepository bookRepository;
+        private readonly IAuthorRepository authorRepository;
+        private readonly IBookRepository bookRepository;
 
-        public BookSeriesRepository(BootCampDBContext db, AuthorRepository authorRepository, BookRepository bookRepository)
+        public BookSeriesRepository(BootCampDBContext db, IAuthorRepository authorRepository, IBookRepository bookRepository)
         {
             this.db = db;
             this.authorRepository = authorRepository;

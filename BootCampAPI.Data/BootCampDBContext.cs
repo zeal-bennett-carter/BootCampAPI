@@ -27,7 +27,7 @@ namespace BootCampAPI.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("Data Source=books.db"); // Set your database provider
+                optionsBuilder.UseSqlite("Data Source=C:\\Users\\benne\\source\\repos\\BootCampAPI\\BootCampAPI.Data\\books.db"); // Set your database provider
             }
         }
 
