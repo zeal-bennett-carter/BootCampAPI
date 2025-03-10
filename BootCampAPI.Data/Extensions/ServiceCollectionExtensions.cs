@@ -1,4 +1,5 @@
-﻿using BootCampAPI.Application.Data.Queries.ListAuthors;
+﻿using BootCampAPI.Application.Data;
+using BootCampAPI.Application.Data.Queries.ListAuthors;
 using BootCampAPI.Application.Data.Queries.ListBooks;
 using BootCampAPI.Application.Data.Queries.ListBookSeries;
 using BootCampAPI.Application.Data.Repositories;
@@ -20,6 +21,7 @@ public static class ServiceCollectionExtensions
     {
         return services
             .AddScoped<IDatabase, BootCampDBContext>()
+            .AddScoped<IDatastore, BootCampDBContext>()
 
             .AddScoped<IListAuthorsDataQuery, ListAuthorsDataQuery>()
             .AddScoped<IListBooksDataQuery, ListBooksDataQuery>()
@@ -32,7 +34,7 @@ public static class ServiceCollectionExtensions
 
             .AddDbContext<BootCampDBContext>(options =>
             {
-                options.UseSqlite("Data Source=C:\\Users\\benne\\source\\repos\\BootCampAPI\\BootCampAPI.Data\\books.db");
+                options.UseSqlite("Data Source=.\\books.db");
             });
 
     }
