@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BootCampAPI.Application.Commands.Authors.CreateAuthor
 {
-    public class CreateAuthorCommand : IRequest<AuthorDTO>
+    public record CreateAuthorCommand : CommandBase<AuthorDTO>
     {
         public int AuthorId { get; set; }
         public string Name { get; set; }
