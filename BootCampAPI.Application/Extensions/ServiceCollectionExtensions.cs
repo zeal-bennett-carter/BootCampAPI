@@ -14,7 +14,8 @@ namespace BootCampAPI.Application.Extensions
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
                     .AddTransient(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>))
-                    .AddScoped<UnitOfWorkBehaviorState>();
+                    .AddScoped<UnitOfWorkBehaviorState>()
+                    .AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

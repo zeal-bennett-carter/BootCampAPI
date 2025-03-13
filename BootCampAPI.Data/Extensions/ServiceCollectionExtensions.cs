@@ -7,6 +7,7 @@ using BootCampAPI.Data.Queries;
 using BootCampAPI.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ public static class ServiceCollectionExtensions
 
             .AddDbContext<BootCampDBContext>(options =>
             {
-                options.UseSqlite("Data Source=.\\books.db");
+                options.UseSqlite("Data Source=C:\\Users\\benne\\source\\repos\\BootCampAPI\\BootCampAPI.Data\\books.db");
             });
 
     }
