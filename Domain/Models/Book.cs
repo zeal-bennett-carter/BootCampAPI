@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BootCampAPI.Domain.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,11 @@ namespace BootCampAPI.Domain.Models
 {
     public class Book
     {
-        internal Book(int Id, string Title, string AuthorName, string Genre, string Description, int PageCount, int PagesRead, string Publisher)
+        private readonly ICreateBookService _createBookService;
+        internal Book(int Id, string Title, int AuthorId, string AuthorName, string Genre, string Description, int PageCount, int PagesRead, string Publisher)
         {
             Id = Id;
+            AuthorId = AuthorId;
             Title = Title;
             AuthorName = AuthorName;
             Genre = Genre;
@@ -20,13 +23,21 @@ namespace BootCampAPI.Domain.Models
             Publisher = Publisher;
         }
 
-        public static Book Create(int Id, string Title, string AuthorName, string Genre, string Description, int PageCount, int PagesRead, string Publisher)
+        public static async Task<Book> Create(int Id, string Title, int AuthorId, string AuthorName, string Genre, string Description, int PageCount, int PagesRead, string Publisher)
         {
             if (Id.Equals(null))
                 throw new ArgumentException("Id cannot be null", nameof(Id));
 
             if (string.IsNullOrWhiteSpace(Title))
                 throw new ArgumentException("Title cannot be empty", nameof(Title));
+
+            if (AuthorId.Equals(null))
+                throw new ArgumentException("Id cannot be null", nameof(AuthorId));
+
+            var validAuthorId = await ValidateAuthor(AuthorId);
+
+            if (!validAuthorId)
+                throw new ArgumentException("AuthorId is invalid", nameof(AuthorId));
 
             if (string.IsNullOrWhiteSpace(AuthorName))
                 throw new ArgumentException("Author cannot be empty", nameof(AuthorName));
@@ -52,7 +63,9 @@ namespace BootCampAPI.Domain.Models
             if(PagesRead > PageCount)
                 throw new ArgumentException("PagesRead cannot be greater than PageCount", nameof(PagesRead));
 
-            return new Book(Id, Title, AuthorName, Genre, Description, PageCount, PagesRead, Publisher);
+
+
+            return new Book(Id, Title, AuthorId, AuthorName, Genre, Description, PageCount, PagesRead, Publisher);
         }
 
         public int BookId { get; private set; }
@@ -63,6 +76,12 @@ namespace BootCampAPI.Domain.Models
         public int PageCount { get; private set; }
         public int PagesRead { get; private set; }
         public string Publisher { get; private set; }
+
+        public async Task<bool> ValidateAuthor(int authorId)
+        {
+            var authorIdValid = await _createBookService.ValidateAuthor(authorId);
+            return authorIdValid;
+        }
 
         public void ChangeTitle(string newTitle)
         {

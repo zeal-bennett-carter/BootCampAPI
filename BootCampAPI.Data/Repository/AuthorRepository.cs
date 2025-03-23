@@ -48,7 +48,7 @@ namespace BootCampAPI.Data.Repository
                 db.Add(entity);
             }
 
-            await db.SaveChangesAsync();
+            //await db.SaveChangesAsync();
         }
     }
 }

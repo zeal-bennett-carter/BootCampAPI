@@ -24,7 +24,7 @@ namespace BootCampAPI.Application.Commands.Books.CreateBook
         public async Task<BookDTO> Handle(CreateBookCommand command, CancellationToken cancellationToken)
         {
 
-            var book = Book.Create(command.BookId, command.Title, command.AuthorName, command.Genre, command.Description, command.PageCount, command.PagesRead, command.Publisher);
+            var book = Book.Create(command.BookId, command.Title, command.AuthorID, command.AuthorName, command.Genre, command.Description, command.PageCount, command.PagesRead, command.Publisher);
 
             await _BookRepository.Save(book);
 
@@ -32,6 +32,7 @@ namespace BootCampAPI.Application.Commands.Books.CreateBook
             {
                 BookId = book.BookId,
                 Title = book.Title,
+                AuthorID = book.AuthorId,
                 AuthorName = book.AuthorName,
                 Genre = book.Genre,
                 Description = book.Description,

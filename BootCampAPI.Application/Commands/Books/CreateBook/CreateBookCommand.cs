@@ -10,6 +10,7 @@ namespace BootCampAPI.Application.Commands.Books.CreateBook
     public record CreateBookCommand(
         int BookId,
         string Title,
+        int AuthorID,
         string AuthorName,
         string Genre,
         string Description,

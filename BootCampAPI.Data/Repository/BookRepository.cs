@@ -24,6 +24,7 @@ namespace BootCampAPI.Data.Repository
             return await Task.FromResult(new Book(
                 entity.BookId,
                 entity.Title,
+                entity.AuthorID,
                 entity.AuthorName,
                 entity.Genre,
                 entity.Description,
@@ -44,6 +45,7 @@ namespace BootCampAPI.Data.Repository
                 {
                     BookId = book.BookId,
                     Title = book.Title,
+                    AuthorID = book.AuthorId,
                     AuthorName = book.AuthorName,
                     Genre = book.Genre,
                     Description = book.Description,
@@ -54,7 +56,7 @@ namespace BootCampAPI.Data.Repository
                 db.Add(entity);
             }
 
-            await db.SaveChangesAsync();
+            //await db.SaveChangesAsync();
         }
     }
 }

@@ -21,6 +21,7 @@ namespace BootCampAPI.Controllers
         public async Task<IActionResult> CreateBook(
             [FromQuery] int bookId,
             [FromQuery] string title,
+            [FromQuery] int authorId,
             [FromQuery] string authorName,
             [FromQuery] string genre,
             [FromQuery] string description,
@@ -28,7 +29,7 @@ namespace BootCampAPI.Controllers
             [FromQuery] int pagesRead,
             [FromQuery] string publisher)
         {
-            var newBookCommand = new CreateBookCommand(bookId, title, authorName, genre, description, pageCount, pagesRead, publisher);
+            var newBookCommand = new CreateBookCommand(bookId, title, authorId, authorName, genre, description, pageCount, pagesRead, publisher);
 
             var result = await _mediator.Send(newBookCommand);
             return Ok(result);

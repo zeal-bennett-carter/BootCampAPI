@@ -97,7 +97,7 @@ namespace BootCampAPI.Data.Repository
                 db.Add(bookSeriesEntity);
             }
 
-            await db.SaveChangesAsync();
+            //await db.SaveChangesAsync();
         }
     }
 }
