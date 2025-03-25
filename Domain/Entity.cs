@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BootCampAPI.Domain.Models
+namespace BootCampAPI.Domain
 {
-    public enum AuthorStatus
+    public class Entity
     {
-        Active,
-        Retired,
-        Deceased
     }
 }

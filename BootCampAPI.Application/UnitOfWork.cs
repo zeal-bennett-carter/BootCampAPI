@@ -4,22 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BootCampAPI.Application.Data;
+using BootCampAPI.Application.Notifications;
+using BootCampAPI.Domain.DomainEvents;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace BootCampAPI.Application
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IDatastore _dbContext;
+        private readonly IDatastore _dataStore;
+        private readonly IDomainEventDispatcher _dispatcher;
+        private readonly IDomainEventsStorage _domainEventsStorage;
 
         public UnitOfWork(IDatastore dbContext)
         {
-            _dbContext = dbContext;
+            _dataStore = dbContext;
         }
 
         public async Task Commit()
         {
-            await _dbContext.SaveChanges();
+            // Handle and dispatch collected domain events
+            while (_domainEventsStorage.TryDequeue(out IDomainEvent? domainEvent))
+                await _dispatcher.Dispatch(domainEvent);
+
+            await _dataStore.SaveChanges();
         }
     }
 }

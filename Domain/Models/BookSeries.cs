@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BootCampAPI.Domain.Models
 {
-    public class BookSeries
+    public class BookSeries : Entity
     {
         internal BookSeries(int bookSeriesId, Author author, List<Book> booksInSeries)
         {

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BootCampAPI.Domain.Models
+namespace BootCampAPI.Domain.Models.Author
 {
-    public class Author
+    public class Author : AggregateRoot<int>
     {
-        internal Author(int authorId, string name, int age, AuthorStatus status)
+        internal Author(int authorId, string name, int age, AuthorStatus status) : base(authorId)
         {
             AuthorId = authorId;
             Name = name;

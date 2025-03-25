@@ -1,6 +1,7 @@
-﻿using BootCampAPI.Application.Data.Repositories;
+﻿using BootCampAPI.Application;
+using BootCampAPI.Application.Data.Repositories;
 using BootCampAPI.Data.Entities;
-using BootCampAPI.Domain.Models;
+using BootCampAPI.Domain.Models.Author;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,20 @@ using System.Threading.Tasks;
 
 namespace BootCampAPI.Data.Repository
 {
-    internal class AuthorRepository(BootCampDBContext db): IAuthorRepository
+    internal class AuthorRepository : IAuthorRepository
     {
+        private readonly BootCampDBContext _db;
+        private readonly IDomainEventsStorage _domainEventsStorage;
+
+        public AuthorRepository(BootCampDBContext db, IDomainEventsStorage domainEventsStorage)
+        {
+            this._db = db;
+            this._domainEventsStorage = domainEventsStorage;
+        }
+
         public async Task<Author?> Get(int authorId)
         {
-            var entity = db.Set<AuthorEntity>()
+            var entity = _db.Set<AuthorEntity>()
                 .FirstOrDefault(e => e.AuthorId == authorId);
 
             if (entity == null)
@@ -32,7 +42,7 @@ namespace BootCampAPI.Data.Repository
 
         public async Task Save(Author author)
         {
-            var entity = db.Set<AuthorEntity>()
+            var entity = _db.Set<AuthorEntity>()
                 .FirstOrDefault(e => e.AuthorId == author.AuthorId);
 
             if (entity == null)
@@ -45,10 +55,12 @@ namespace BootCampAPI.Data.Repository
                     Status = author.Status.ToString()
                 };
 
-                db.Add(entity);
+                _db.Add(entity);
             }
 
-            await db.SaveChangesAsync();
+            //await _db.SaveChangesAsync();
+
+            _domainEventsStorage.Enqueue(author.PullEvents());
         }
     }
 }

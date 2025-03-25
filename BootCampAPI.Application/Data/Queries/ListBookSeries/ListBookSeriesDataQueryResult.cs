@@ -1,4 +1,5 @@
 ﻿using BootCampAPI.Domain.Models;
+using BootCampAPI.Domain.Models.Author;
 using System;
 using System.Collections.Generic;
 using System.Linq;

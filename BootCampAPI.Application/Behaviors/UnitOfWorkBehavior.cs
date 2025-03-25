@@ -1,4 +1,5 @@
 ﻿using BootCampAPI.Application.Commands;
+using BootCampAPI.Application.Notifications;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -35,11 +36,21 @@ namespace BootCampAPI.Application.Behaviors
 
             // Once we got back to the top level of the call stack, we commit the unit of work.
             if (state.CallLevel == 1)
-                await unitOfWork.Commit();
+                await Commit();
 
             state.CallLevel -= 1;
 
             return response;
+        }
+
+        private async Task Commit()
+        {
+            await NotificationBatchManager.DispatchPreTransactionNotifications();
+
+            await unitOfWork.Commit();
+
+            await DeferredNotificationsManager.HandleNotifications();
+            await NotificationBatchManager.DispatchPostTransactionNotifications();
         }
     }
 }
