@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BootCampAPI.Domain.Models.Author
+namespace BootCampAPI.Domain.Models.AuthorContent
 {
     public enum AuthorStatus
     {
