@@ -1,7 +1,7 @@
 ﻿using BootCampAPI.Application;
 using BootCampAPI.Application.Data.Repositories;
 using BootCampAPI.Data.Entities;
-using BootCampAPI.Domain.Models.Author;
+using BootCampAPI.Domain.Models.AuthorContent;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
