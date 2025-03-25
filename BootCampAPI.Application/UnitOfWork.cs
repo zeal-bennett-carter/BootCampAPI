@@ -16,9 +16,11 @@ namespace BootCampAPI.Application
         private readonly IDomainEventDispatcher _dispatcher;
         private readonly IDomainEventsStorage _domainEventsStorage;
 
-        public UnitOfWork(IDatastore dbContext)
+        public UnitOfWork(IDatastore dbContext, IDomainEventDispatcher dispatcher, IDomainEventsStorage domainEventsStorage)
         {
             _dataStore = dbContext;
+            _dispatcher = dispatcher;
+            _domainEventsStorage = domainEventsStorage;
         }
 
         public async Task Commit()

@@ -1,5 +1,6 @@
 ﻿using BootCampAPI.Application.Behaviors;
 using BootCampAPI.Application.Data.Repositories;
+using BootCampAPI.Application.Notifications;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -16,6 +17,7 @@ namespace BootCampAPI.Application.Extensions
                     .AddTransient(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>))
                     .AddScoped<UnitOfWorkBehaviorState>()
                     .AddScoped<IUnitOfWork, UnitOfWork>()
+                    .AddScoped<IDomainEventDispatcher, DomainEventDispatcher>()
                     .AddScoped<IDomainEventsStorage, DomainEventStorage>();
 
             return services;
