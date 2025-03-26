@@ -8,5 +8,6 @@ namespace BootCampAPI.Domain
 {
     public class Entity
     {
+        //not sure if this is actually necessary.
     }
 }
