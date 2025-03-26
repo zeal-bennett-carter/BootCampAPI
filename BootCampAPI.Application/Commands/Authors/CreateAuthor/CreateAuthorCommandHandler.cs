@@ -1,6 +1,6 @@
 ﻿using BootCampAPI.Application.Data.Repositories;
 using BootCampAPI.Application.Models.DTO;
-using BootCampAPI.Domain.Models;
+using BootCampAPI.Domain.Models.AuthorContent;
 using MediatR;
 using System;
 using System.Collections.Generic;

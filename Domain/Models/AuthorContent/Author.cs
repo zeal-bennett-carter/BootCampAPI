@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BootCampAPI.Domain.Models
+namespace BootCampAPI.Domain.Models.AuthorContent
 {
-    public class Author
+    public class Author : AggregateRoot<int>
     {
-        internal Author(int authorId, string name, int age, AuthorStatus status)
+        internal Author(int authorId, string name, int age, AuthorStatus status) : base(authorId)
         {
             AuthorId = authorId;
             Name = name;
@@ -52,6 +52,8 @@ namespace BootCampAPI.Domain.Models
                 throw new ArgumentException("Age cannot be less than or equal to zero", nameof(age));
 
             Age = age;
+
+            PublishEvent(new AgeChangedDomainEvent(this));
         }
 
         public void ChangeStatus(AuthorStatus status)

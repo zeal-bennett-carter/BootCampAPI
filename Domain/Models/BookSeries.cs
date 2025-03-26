@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BootCampAPI.Domain.Models.AuthorContent;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BootCampAPI.Domain.Models
 {
-    public class BookSeries
+    public class BookSeries : Entity
     {
         internal BookSeries(int bookSeriesId, Author author, List<Book> booksInSeries)
         {

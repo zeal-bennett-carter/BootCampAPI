@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BootCampAPI.Application.Queries.Author
 {
-    public class GetAuthorByNameQuery : IRequest<AuthorDTO>
+    public record GetAuthorByNameQuery : QueryBase<AuthorDTO> // why use record?
     {
         public string Name { get; set; }
 

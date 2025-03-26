@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using BootCampAPI.Data.Entities;
+using BootCampAPI.Application.Data;
 
 namespace BootCampAPI.Data
 {
-    internal class BootCampDBContext: DbContext, IDatabase // make this internal, if we dont make it internal it makes it easy to access in different layers
+    internal class BootCampDBContext: DbContext, IDatabase, IDatastore // make this internal, if we dont make it internal it makes it easy to access in different layers
     {
         public BootCampDBContext()
         {
@@ -75,6 +76,11 @@ namespace BootCampAPI.Data
                       .WithOne(b => b.BookSeries)
                       .HasForeignKey(b => b.BookSeriesID);
             });
+        }
+
+        Task IDatastore.SaveChanges()
+        { 
+           return SaveChangesAsync();
         }
     }
 

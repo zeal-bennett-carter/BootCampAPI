@@ -1,4 +1,5 @@
-﻿using BootCampAPI.Application.Data.Queries.ListAuthors;
+﻿using BootCampAPI.Application.Data;
+using BootCampAPI.Application.Data.Queries.ListAuthors;
 using BootCampAPI.Application.Data.Queries.ListBooks;
 using BootCampAPI.Application.Data.Queries.ListBookSeries;
 using BootCampAPI.Application.Data.Repositories;
@@ -6,6 +7,7 @@ using BootCampAPI.Data.Queries;
 using BootCampAPI.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,9 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddDataServices(this IServiceCollection services)
     {
         return services
-            .AddScoped<IDatabase, BootCampDBContext>()
+            .AddScoped<IDatabase>(provider => provider.GetRequiredService<BootCampDBContext>())
+            .AddScoped<IDatastore>(provider => provider.GetRequiredService<BootCampDBContext>())
+            // every time you request idatabase/idatastore like below lines you get a new instance, the change above helps you get the same instance
 
             .AddScoped<IListAuthorsDataQuery, ListAuthorsDataQuery>()
             .AddScoped<IListBooksDataQuery, ListBooksDataQuery>()

@@ -6,13 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BootCampAPI.Application.Commands.Authors.CreateAuthor
+namespace BootCampAPI.Application.Commands.Authors.ChangeAuthorAge
 {
-    public record CreateAuthorCommand(
+    public record ChangeAuthorAgeCommand(
         int AuthorId,
-        string Name,
-        int Age,
-        string Status
+        int Age
         ): CommandBase<AuthorDTO>
     {
     }
