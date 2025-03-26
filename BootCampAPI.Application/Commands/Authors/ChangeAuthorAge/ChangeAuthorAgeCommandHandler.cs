@@ -22,12 +22,14 @@ namespace BootCampAPI.Application.Commands.Authors.ChangeAuthorAge
 
             await authorRepository.Save(author);
 
+            var updatedAuthor = await authorRepository.Get(command.AuthorId);
+
             return new AuthorDTO
             {
-                AuthorId = author.AuthorId,
-                Name = author.Name,
-                Age = author.Age,
-                Status = author.Status.ToString()
+                AuthorId = updatedAuthor.AuthorId,
+                Name = updatedAuthor.Name,
+                Age = updatedAuthor.Age,
+                Status = updatedAuthor.Status.ToString()
             };
         }
     }

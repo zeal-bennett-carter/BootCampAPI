@@ -34,11 +34,8 @@ namespace BootCampAPI.Controllers
             return Ok(result);
         }
 
-
-        // add change author endpoint
-
         [HttpPut("changeAge")]
-        public async Task<IActionResult> CreateAuthor(
+        public async Task<IActionResult> ChangeAuthorAge(
             [FromQuery] int id,
             [FromQuery] int age
             )
