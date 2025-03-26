@@ -56,6 +56,11 @@ namespace BootCampAPI.Data.Repository
                 };
 
                 _db.Add(entity);
+            } else
+            {
+                entity.Name = author.Name;
+                entity.Age = author.Age;
+                entity.Status = author.Status.ToString();
             }
 
             //await _db.SaveChangesAsync();
